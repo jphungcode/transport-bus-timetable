@@ -414,7 +414,6 @@
   $(document).ready(function() {
     getBusDepartureAndDisplay();
 
-    
     // grab data attribute for re
 
     $("#info-text").click(function() {
@@ -520,10 +519,7 @@
   async function addBusMarker(realtimeId) {
     let currentBusPosition = await getBusLoc(realtimeId);
     if (busPosition === currentBusPosition) {
-      if (gpsUpdate) {
-        clearTimeout(gpsUpdate);
-        setTimeout(addBusMarker, 5000);
-      }
+      return;
     } else if (currentBusPosition !== "") {
       busPosition = currentBusPosition;
       var newBounds = new google.maps.LatLngBounds();
@@ -573,17 +569,11 @@
       var directionsDisplay = new google.maps.DirectionsRenderer({
         suppressMarkers: true
       });
-      directionsDisplay.setMap();
+      directionsDisplay.setMap(null);
+      directionsDisplay.set("directions", null);
+      directionsDisplay.setMap(map);
 
       calcRoute(directionsService, directionsDisplay, pointA, pointB);
-      if (gpsUpdate) {
-        clearTimeout(gpsUpdate);
-        gpsUpdate = setTimeout(addBusMarker, 5000);
-      } else {
-        gpsUpdate = setTimeout(addBusMarker, 5000);
-      }
-
-      directionsDisplay.setMap(map);
     }
   }
 
