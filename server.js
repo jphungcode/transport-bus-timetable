@@ -20,7 +20,7 @@ app.use(
 app.use(express.static(path.join(__dirname, "build")));
 
 const url = "https://api.transport.nsw.gov.au/v1/gtfs/vehiclepos/buses";
-
+const apikey = "VS0erNmHzpblgvtppvJnCCbUu2YsqjW5ZNgU";
 const url_tripUpdate =
   "https://api.transport.nsw.gov.au/v1/gtfs/realtime/buses";
 const url_busTimeTable =
@@ -31,13 +31,13 @@ const tripURI = "https://api.transport.nsw.gov.au/v1/tp/trip";
 const departureURI = "https://api.transport.nsw.gov.au/v1/tp/departure_mon";
 
 requestHeaderBuffer = {
-  headers: { Authorization: `apikey ${process.env.API_KEY}` },
+  headers: { Authorization: `apikey ${apikey}` },
   responseType: "arraybuffer"
 };
 
 requestHeaderJSON = {
   headers: {
-    Authorization: `apikey ${process.env.API_KEY}`,
+    Authorization: `apikey ${apikey}`,
     "Content-Type": "application/json"
   }
 };
