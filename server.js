@@ -4,8 +4,8 @@ const GtfsRealtimeBindings = require("gtfs-realtime-bindings");
 const cors = require("cors");
 const strtotime = require("locutus/php/datetime/strtotime");
 const bodyParser = require("body-parser");
-
 const app = express();
+require("dotenv").config();
 
 app.use(express.json());
 app.use(cors({}));
@@ -17,7 +17,7 @@ app.use(
 );
 
 const url = "https://api.transport.nsw.gov.au/v1/gtfs/vehiclepos/buses";
-const apikey = "VS0erNmHzpblgvtppvJnCCbUu2YsqjW5ZNgU";
+
 const url_tripUpdate =
   "https://api.transport.nsw.gov.au/v1/gtfs/realtime/buses";
 const url_busTimeTable =
@@ -28,13 +28,13 @@ const tripURI = "https://api.transport.nsw.gov.au/v1/tp/trip";
 const departureURI = "https://api.transport.nsw.gov.au/v1/tp/departure_mon";
 
 requestHeaderBuffer = {
-  headers: { Authorization: `apikey ${apikey}` },
+  headers: { Authorization: `apikey ${process.env.API_KEY}` },
   responseType: "arraybuffer"
 };
 
 requestHeaderJSON = {
   headers: {
-    Authorization: `apikey ${apikey}`,
+    Authorization: `apikey ${process.env.API_KEY}`,
     "Content-Type": "application/json"
   }
 };
