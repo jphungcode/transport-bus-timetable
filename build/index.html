@@ -413,6 +413,8 @@
 <script>
   $(document).ready(function() {
     getBusDepartureAndDisplay();
+
+    
     // grab data attribute for re
 
     $("#info-text").click(function() {
@@ -484,7 +486,7 @@
     removeMarkers();
 
     var icon = {
-      url: "../images/busStop-01.svg", // url
+      url: "./images/busStop-01.svg", // url
       scaledSize: new google.maps.Size(20, 20)
     };
 
@@ -741,7 +743,7 @@
 
     var infoWindow = new google.maps.InfoWindow({ map: map });
     var userIcon = {
-      url: "./boy.svg", // url
+      url: "./images/boy.svg", // url
       scaledSize: new google.maps.Size(30, 30)
     };
 

@@ -5,6 +5,7 @@ const cors = require("cors");
 const strtotime = require("locutus/php/datetime/strtotime");
 const bodyParser = require("body-parser");
 const app = express();
+const path = require("path");
 require("dotenv").config();
 
 app.use(express.json());
@@ -15,6 +16,8 @@ app.use(
     extended: true
   })
 );
+
+app.use(express.static(path.join(__dirname, "build")));
 
 const url = "https://api.transport.nsw.gov.au/v1/gtfs/vehiclepos/buses";
 
@@ -38,10 +41,6 @@ requestHeaderJSON = {
     "Content-Type": "application/json"
   }
 };
-
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
 
 app.get("/api/trip", async (req, res) => {
   //let destinationName = req.body.destinationName;
