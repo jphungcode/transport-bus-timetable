@@ -805,7 +805,7 @@
 
   function getStopDepartures() {
     return axios
-      .get("http://localhost:5000/api/departures")
+      .get("/api/departures")
       .then(response => {
         return response.data;
       })
@@ -814,7 +814,7 @@
 
   function getStopsForBus(destination) {
     return axios
-      .get(`http://localhost:5000/api/trip?destination=${destination}`)
+      .get(`/api/trip?destination=${destination}`)
       .then(response => {
         return response.data.tripInfo;
       })
@@ -823,7 +823,7 @@
 
   function getBusLoc(realtimeId) {
     return axios
-      .post(`http://localhost:5000/api/getBusLocation?realtimeId=${realtimeId}`)
+      .post(`/api/getBusLocation?realtimeId=${realtimeId}`)
       .then(response => {
         return response.data;
       })
