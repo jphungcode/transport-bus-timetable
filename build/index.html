@@ -351,14 +351,22 @@
         transform: translate(-50%);
         padding: 1rem;
         z-index: 9999;
-        background-color: #fff;
+        background-color: #FFF;
         font-size: 1.4rem;
-        text-align: center;
+        text-align:center;
       }
 
       #assistance {
         text-decoration: none;
-        color: #fff;
+        color: #FFF;
+      }
+
+      .greenText {
+        color: green;
+      }
+
+      .redText {
+        color: red;
       }
     </style>
     <script>
@@ -648,32 +656,30 @@
         "<div class='error-msg'>API limit reached</div>"
       );
     }
-
-    for (i = 0; i <= 10; i++) {
+    [...busDepartData].forEach(departure => {
       let div1 = document.createElement("div");
+      //console.log(departure.countdown);
+      //console.log(departure.realtimeID);
       $(div1).addClass("departure-div");
-      $(div1).attr(
-        "data-realtimeID",
-        `${busDepartData[i].departure.realtimeID}`
-      );
-      $(div1).attr(
-        "data-destination",
-        `${busDepartData[i].departure.destination}`
-      );
+
+      $(div1).attr("data-realtimeID", `${departure.realtimeID}`);
+      $(div1).attr("data-destination", `${departure.destination}`);
       $(div1).html(
         `<div class="departure-div-1"><p class="countdown-display">${
-          busDepartData[i].departure.countdown
+          departure.countdown
         }</p><p>min</p></div><div class="departure-div-2"><p> Bus Route ${
-          busDepartData[i].departure.route
+          departure.route
         }</p><p>${
-          busDepartData[i].departure.destination
-        }</p></div><div class="departure-div-3">${
-          busDepartData[i].departure.departureTime
+          departure.destination
+        }</p>
+        ${departure.realtimeID !== undefined ? "<p class='greenText'>Real Time Location Available</p>" : "<p class='redText'>Real Time LocationNot Available</p>"}
+        </div><div class="departure-div-3">${
+          departure.departureTime
         }</div>`
       );
 
       $("#departure-container").append(div1);
-    }
+    });
   };
 
   function initMap() {
@@ -829,6 +835,7 @@
     });
 
     busPath.setMap(map);
+    
   }
 
   function getStopDepartures() {
