@@ -48,6 +48,7 @@
         top: 2.5%;
         width: 125px;
         height: auto;
+        transform:  translateZ(170px);
       }
 
       #destination-container {
@@ -244,9 +245,8 @@
         bottom: 10px;
         height: 60px;
         transform: translate(-50%, 0) perspective(0px) rotateX(0deg)
-          translateZ(100px);
+          translateZ(150px);
         color: blue;
-        z-index: 9999;
         font-size: 2rem;
         font-weight: bold;
         text-align: center;
@@ -268,7 +268,8 @@
         position: absolute;
         left: 50%;
         bottom: 8%;
-        transform: translate(-50%, 0) perspective(300px) rotateX(20deg) translateZ(100px);
+        transform: translate(-50%, 0) perspective(300px) rotateX(20deg)
+          translateZ(100px);
         width: 55%;
         display: flex;
         flex-direction: column;
@@ -297,6 +298,7 @@
         width: 100%;
         height: 1%;
         background-color: rgba(0, 0, 0, 0.2);
+        transform:  translateZ(150px);
       }
 
       #progressbar {
@@ -319,7 +321,10 @@
           #ea882d 100%
         ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f27730', endColorstr='#ea882d',GradientType=1 );
+        z-index: 9999;
+        transform:  translateZ(150px);
       }
+
 
       #hide-div {
         width: 100%;
@@ -352,14 +357,14 @@
         transform: translate(-50%);
         padding: 1rem;
         z-index: 9999;
-        background-color: #FFF;
+        background-color: #fff;
         font-size: 1.4rem;
-        text-align:center;
+        text-align: center;
       }
 
       #assistance {
         text-decoration: none;
-        color: #FFF;
+        color: #fff;
       }
 
       .greenText {
@@ -670,13 +675,13 @@
           departure.countdown
         }</p><p>min</p></div><div class="departure-div-2"><p> Bus Route ${
           departure.route
-        }</p><p>${
-          departure.destination
-        }</p>
-        ${departure.realtimeID !== undefined ? "<p class='greenText'>Real Time Location Available</p>" : "<p class='redText'>Real Time Location Not Available</p>"}
-        </div><div class="departure-div-3">${
-          departure.departureTime
-        }</div>`
+        }</p><p>${departure.destination}</p>
+        ${
+          departure.realtimeID !== undefined
+            ? "<p class='greenText'>Real Time Location Available</p>"
+            : "<p class='redText'>Real Time Location Not Available</p>"
+        }
+        </div><div class="departure-div-3">${departure.departureTime}</div>`
       );
 
       $("#departure-container").append(div1);
@@ -836,7 +841,6 @@
     });
 
     busPath.setMap(map);
-    
   }
 
   function getStopDepartures() {
