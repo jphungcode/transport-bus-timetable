@@ -111,9 +111,9 @@
         left: 0;
         bottom: 0;
         width: 100%;
-        height: 55%;
+        height: 45%;
         background-color: #d3d3d3;
-        transform: perspective(600px) rotateX(50deg) translateZ(-50px);
+        transform: perspective(350px) rotateX(40deg) translateZ(50px);
       }
 
       #map {
@@ -148,7 +148,8 @@
         top: 12.5%;
         height: 50%;
         width: 80%;
-        transform: translateX(-50%) perspective(1000px) rotateX(-20deg);
+        transform: translateX(-50%) perspective(1000px) rotateX(-18deg)
+          translateZ(50px);
         background-color: #333;
         border-radius: 0.5rem;
         opacity: 0.8;
@@ -242,7 +243,8 @@
         left: 50%;
         bottom: 10px;
         height: 60px;
-        transform: translate(-50%, 0) perspective(0px) rotateX(0deg);
+        transform: translate(-50%, 0) perspective(0px) rotateX(0deg)
+          translateX(30px);
         color: blue;
         z-index: 9999;
         font-size: 2rem;
@@ -340,6 +342,24 @@
         width: 100%;
         color: #fff;
       }
+
+      .popup {
+        position: relative;
+        width: 80%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%);
+        padding: 1rem;
+        z-index: 9999;
+        background-color: #fff;
+        font-size: 1.4rem;
+        text-align: center;
+      }
+
+      #assistance {
+        text-decoration: none;
+        color: #fff;
+      }
     </style>
     <script>
       AFRAME.registerComponent("loadscene", {
@@ -399,9 +419,18 @@
     <div id="info-menu">
       <div id="timetable-menu" class="nav-item">Bus Timetable</div>
       <div id="assistance-menu" class="nav-item">
-        Request Boarding Assistance
+        <a id="assistance" href="#assistance-popup"
+          >Request Boarding Assistance</a
+        >
       </div>
     </div>
+
+    <div id="assistance-popup" class="popup mfp-hide">
+      <p>
+        The next arriving bus has been notified of your boarding assistance.
+      </p>
+    </div>
+
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1uPqkckmSelPtrkIh2hDSW87GoWVN8zE&callback=initMap"
       async
@@ -412,6 +441,10 @@
 
 <script>
   $(document).ready(function() {
+    $("#assistance").magnificPopup({
+      type: "inline",
+      src: "#assistance-popup"
+    });
     getBusDepartureAndDisplay();
 
     // grab data attribute for re
@@ -615,27 +648,32 @@
         "<div class='error-msg'>API limit reached</div>"
       );
     }
-    [...busDepartData].forEach(departure => {
+
+    for (i = 0; i <= 10; i++) {
       let div1 = document.createElement("div");
-      //console.log(departure.countdown);
-      //console.log(departure.realtimeID);
       $(div1).addClass("departure-div");
-      $(div1).attr("data-realtimeID", `${departure.realtimeID}`);
-      $(div1).attr("data-destination", `${departure.destination}`);
+      $(div1).attr(
+        "data-realtimeID",
+        `${busDepartData[i].departure.realtimeID}`
+      );
+      $(div1).attr(
+        "data-destination",
+        `${busDepartData[i].departure.destination}`
+      );
       $(div1).html(
         `<div class="departure-div-1"><p class="countdown-display">${
-          departure.countdown
+          busDepartData[i].departure.countdown
         }</p><p>min</p></div><div class="departure-div-2"><p> Bus Route ${
-          departure.route
+          busDepartData[i].departure.route
         }</p><p>${
-          departure.destination
+          busDepartData[i].departure.destination
         }</p></div><div class="departure-div-3">${
-          departure.departureTime
+          busDepartData[i].departure.departureTime
         }</div>`
       );
 
       $("#departure-container").append(div1);
-    });
+    }
   };
 
   function initMap() {
@@ -748,7 +786,7 @@
 
           //infoWindow.setPosition(pos);
           //infoWindow.setContent("");
-          map.setCenter(pos);
+          //map.setCenter(pos);
 
           var userMarker = new google.maps.Marker({
             position: pos,
@@ -813,7 +851,7 @@
 
   function getBusLoc(realtimeId) {
     return axios
-      .post(`/api/getBusLocation?realtimeId=${realtimeId}`)
+      .get(`/api/getBusLocation?realtimeId=${realtimeId}`)
       .then(response => {
         return response.data;
       })

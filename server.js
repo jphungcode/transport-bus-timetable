@@ -115,7 +115,7 @@ app.get("/api/departures", async (req, res) => {
   }
 });
 
-app.post("/api/getBusLocation", (req, res) => {
+app.get("/api/getBusLocation", (req, res) => {
   let realtimeId = req.query.realtimeId;
   console.log(realtimeId);
 
