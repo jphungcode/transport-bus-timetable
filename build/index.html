@@ -944,8 +944,38 @@
 
     setMarkers();
 
+    
+    var busFilterRouteCoords = [
+      { lat: 26.711866, lng: -80.062950 },
+      { lat: 26.713494, lng: -80.063064 },
+      { lat: 26.712440, lng: -80.062581 },
+      { lat: 26.718370, lng: -80.061800 },
+      { lat: 26.723044, lng: -80.061671 },
+      { lat: 26.724744, lng: -80.061637 },
+      { lat: 26.730873, lng: -80.061050 },
+      { lat: 26.734488, lng: -80.060917 },
+      { lat: 26.736860, lng: -80.062120 },
+      { lat: 26.739725, lng: -80.065637 },
+      { lat: 26.745183, lng: -80.066062 },
+      { lat: 26.749856, lng: -80.071840 },
+      { lat: 26.753300, lng: -80.078092 },
+      { lat: 26.756173, lng: -80.081432 },
+      { lat: 26.758816, lng: -80.084042 },
+      { lat: 26.759262, lng: -80.094559 },
+      { lat: 26.759693, lng: -80.105526 },
+      { lat: 26.763816, lng: -80.108145 },
+      { lat: 26.769122, lng: -80.107883 },
+      { lat: 26.771556, lng: -80.107743 },
+      { lat: 26.773829, lng: -80.107638 },
+      { lat: 26.778242, lng: -80.107487 },
+      { lat: 26.783412, lng: -80.107152 },
+      { lat: 26.785255, lng: -80.107163 },
+      { lat: 26.785332, lng: -80.108472 },
+    ];
+
     var busRouteCoords = [
-      { lat: 26.711566, lng: -80.062835 },
+      { lat: 26.711866, lng: -80.062950 },
+      { lat: 26.713494, lng: -80.063064 },
       { lat: 26.712440, lng: -80.062581 },
       { lat: 26.715984, lng: -80.061852 },
       { lat: 26.718370, lng: -80.061800 },
@@ -985,6 +1015,40 @@
       { lat: 26.785332, lng: -80.108472 },
     ];
 
+    const wps = [];
+    busFilterRouteCoords.forEach(coords=>{
+      let locationObj = new google.maps.LatLng(coords.lat,coords.lng);
+      wps.push({location: locationObj})
+    })
+
+    // Route directions on Google Maps
+    const rendererOptions = { map: map };
+    
+    const directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+    directionsDisplay.setOptions({suppressMarkers: true});
+
+    let originCoords = new google.maps.LatLng(26.711866,-80.062950);
+    let destinationCoords = new google.maps.LatLng( 26.785332, -80.108472 );
+
+
+    var request = {
+			origin: originCoords,
+			destination: destinationCoords,
+			waypoints: wps,
+			travelMode: google.maps.DirectionsTravelMode.DRIVING
+			};
+
+    directionsService = new google.maps.DirectionsService();
+    directionsService.route(request, function(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      }
+      else
+        alert ('failed to get directions');
+    });
+   
+
+
     var busPath = new google.maps.Polyline({
       path: busRouteCoords,
       geodesic: true,
@@ -993,7 +1057,7 @@
       strokeWeight: 4
     });
 
-    busPath.setMap(map);
+    //busPath.setMap(map);
   }
 
   // function getStopDepartures() {
