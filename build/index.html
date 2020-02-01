@@ -47,7 +47,7 @@
         position: absolute;
         left: 5%;
         top: 2.5%;
-        width: 115px;
+        width: 100px;
         height: auto;
         transform:  translateZ(170px);
       }
@@ -603,23 +603,23 @@
       });
     });
 
-    $("#upcoming-bus").on("click", ".departure-div", async function() {
-      let destination = $(this).attr("data-destination");
-      // let stops = await getStopsForBus(destination);
-      // console.log(stops);
-      // set all departure div active is false
-      $(".departure-div").each(function(i, obj) {
-        $(this).attr("data-active", "false");
-      });
-      // get realtimeID
-      let realtimeId = $(this).attr("data-realtimeid");
-      // set this div to active
-      $(this).attr("data-active", "true");
+    // $("#upcoming-bus").on("click", ".departure-div", async function() {
+    //   let destination = $(this).attr("data-destination");
+    //   // let stops = await getStopsForBus(destination);
+    //   // console.log(stops);
+    //   // set all departure div active is false
+    //   $(".departure-div").each(function(i, obj) {
+    //     $(this).attr("data-active", "false");
+    //   });
+    //   // get realtimeID
+    //   let realtimeId = $(this).attr("data-realtimeid");
+    //   // set this div to active
+    //   $(this).attr("data-active", "true");
 
-      if (realtimeId !== undefined) {
-        addBusMarker(realtimeId);
-      }
-    });
+    //   if (realtimeId !== undefined) {
+    //     addBusMarker(realtimeId);
+    //   }
+    // });
   });
 
   var map;
