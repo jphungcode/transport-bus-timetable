@@ -375,6 +375,50 @@
       .redText {
         color: red;
       }
+
+      #info-bar {
+        position: fixed;
+        left: 50%;
+        top: 65%;
+        width: 80%;
+        height: 50px;
+        z-index: 5;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgba(255,255,255,0.4);
+        border-radius: 0.5rem;
+      }
+
+      #info-left-container {
+        display: flex;
+        max-width: 50%;
+        align-items: center;
+      }
+
+      #info-right-container {
+        display: flex;
+        max-width: 50%;
+        align-items: center;
+      }
+
+      #info-right-container button {
+        border: none;
+        background-color: transparent;
+        font-weight:bold;
+        font-size: 0.7rem;
+      }
+
+      #info-right-container button a {
+      text-decoration: none;
+      color: black;
+      
+      }
+      .info-logo {
+        width: 50px;
+    
+      }
     </style>
     <script>
       AFRAME.registerComponent("loadscene", {
@@ -438,6 +482,19 @@
           >Request Boarding Assistance</a
         >
       </div>
+    </div>
+
+    <div id="info-bar">
+      <div id="info-left-container">
+        <a href="https://apps.apple.com/us/app/uber/id368677368"><img class="info-logo" src="./images/uber.png" alt="uber logo" /></a>
+        <a href="https://apps.apple.com/us/app/lyft/id529379082"><img style="width:30px; margin-right: 0.5rem" src="./images/lyft.png" alt="lyft logo" /></a>
+        <a href="https://www.tri-rail.com"><img class="info-logo" src="./images/trirail.png" alt="tri-rail logo" /></a>
+      </div>
+      <div id="info-right-container">
+        <button><a href="http://discover.pbcgov.org/palmtran/Pages/Contact-Us.aspx">Report an Issue</a></button>
+        <button>Emergency Call</button>
+      </div>
+
     </div>
 
     <div id="assistance-popup" class="popup mfp-hide">
